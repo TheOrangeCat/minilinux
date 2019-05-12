@@ -23,6 +23,7 @@ echo "Starting build MiniLinux $DISTRO_VER..."
 LINUX_VER=4.11
 GLIBC_VER=2.25
 BUSYBOX_VER=1.26.2
+sysd=242
 
 XFLAGS="-Os -s -fno-stack-protector -U_FORTIFY_SOURCE"
 
@@ -108,9 +109,20 @@ package_busybox() {
     make CONFIG_PREFIX=$DEST install -j9
 }
 
+package_sysd() {
+	cd ${SRC}
+	wget -c https://github.com/systemd/systemd/archive/v$sysd.zip
+	tar -xf v$sysd.zip
+	cd v$sysd
+	make defconfig
+	make
+	make CONFIG_PREFIX=$dest install
+}
+
 prepare_fs
 package_linux
 package_glibc
 package_busybox
+package_sysd
 
 exit 0
