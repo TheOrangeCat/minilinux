@@ -1,2 +1,2 @@
-# minilinux
-Official git repository of MiniLinux
+# zhrachlinux
+Official git repository of zhrachlinux
